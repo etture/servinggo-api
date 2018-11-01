@@ -20,6 +20,9 @@ router.post('/generate', (req, res) => {
     const protocol = req.protocol;
     const host = req.get('host');
 
+    console.log('protocol:', protocol);
+    console.log('host:', host);
+
     console.log(file_path);
 
     qrcode.toFile(file_path, text_encoded, {
@@ -42,14 +45,6 @@ router.post('/generate', (req, res) => {
             .catch((err) => {
                 res.status(400).json(err);
             });
-
-        //
-        // const inserts = {store_id, table_num, relative_url};
-        //
-        // db.query('INSERT INTO qr SET ?', inserts, (err, result) => {
-        //     if(err) return res.send(err);
-        //     res.send(`${protocol}://${host}/images/qr/merchant_${store_id}_table_${table_num}.png`);
-        // });
     });
 });
 
