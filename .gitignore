@@ -2,5 +2,5 @@
 npm-debug.log
 .DS_Store
 /*.env
-/public/images/*
+/public/images/qr/*
 /src/local
