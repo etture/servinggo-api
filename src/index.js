@@ -21,6 +21,11 @@ app.use(cors());
 // Router endpoint
 app.use('/api', router_api);
 
+// Server connectivty test page
+app.get('/', (req, res) => {
+    res.send('ServingGo server deployed!');
+});
+
 app.listen(PORT, () => {
     console.log(`server started on ${PORT}`);
 });
