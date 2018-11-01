@@ -8,6 +8,7 @@ const knex = require('knex')({
 // Check DB connection
 knex.raw("SELECT 'test connection';").then((message) => {
     console.log('DB connected!');
+    console.log(connection);
 }).catch((err) => {
     throw err;
 });
