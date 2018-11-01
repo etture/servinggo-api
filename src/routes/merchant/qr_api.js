@@ -23,8 +23,6 @@ router.post('/generate', (req, res) => {
     console.log('protocol:', protocol);
     console.log('host:', host);
 
-    console.log(file_path);
-
     qrcode.toFile(file_path, text_encoded, {
         type: 'png',
         errorConnectionLevel: 'H',
