@@ -13,7 +13,11 @@ const router = express.Router();
 // TODO turn response into JSON output
 router.post('/generate', (req, res) => {
     const {store_id, table_num} = req.body;
-    const text_encoded = `servinggo-store-${store_id}-table-${table_num}`; // Text to be encoded in QR code
+    const encoded_store_id = (store_id * 47 + 19) * 7 + 57;
+    const encoded_table_num = (table_num * 32 - 25) * 3 + 48;
+
+    // const text_encoded = `servinggo-store-${store_id}-table-${table_num}`; // Text to be encoded in QR code
+    const text_encoded = `servinggo-store-${encoded_store_id}-table-${encoded_table_num}`;
     const relative_path = `/images/qr/store_${store_id}_table_${table_num}.png`;
     const file_path = path.join(__dirname, `../../../public${relative_path}`);
 

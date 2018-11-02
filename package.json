@@ -2,7 +2,8 @@
   "name": "servinggo-node-api",
   "version": "1.0.0",
   "engines": {
-    "node": "8.11.1"
+    "node": "8.11.1",
+    "npm": "6.4.1"
   },
   "scripts": {
     "dev": "nodemon ./src/index.js --exec babel-node -e js",
