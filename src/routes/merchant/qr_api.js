@@ -2,10 +2,21 @@ const express = require('express');
 const path = require('path');
 const qrcode = require('qrcode');
 const knex = require('../../knexfile');
-const db = require('../../db');
+const {encrypt, decrypt} = require('../../utils/encryption');
 
 // Endpoint: /api/qr
 const router = express.Router();
+
+// Encryption Test용 endpoint
+router.get('/crypto', (req, res) => {
+    const text = req.query.text;
+    const encrypted = encrypt(text);
+    console.log('Encrypted text:', encrypted);
+    const decrypted = decrypt(encrypted);
+    console.log('Decrypted text:', decrypted);
+    res.send(decrypted);
+});
+
 
 // QR 생성 모듈 이용한 방법
 // Post request body에 상점 번호 (store_id), 테이블 번호 (table_num)을 받아서 QR 코드 생성
@@ -16,8 +27,8 @@ router.post('/generate', (req, res) => {
     const encoded_store_id = (store_id * 47 + 19) * 7 + 57;
     const encoded_table_num = (table_num * 32 - 25) * 3 + 48;
 
-    // const text_encoded = `servinggo-store-${store_id}-table-${table_num}`; // Text to be encoded in QR code
-    const text_encoded = `servinggo-store-${encoded_store_id}-table-${encoded_table_num}`;
+    // Text to be encoded in QR code
+    const text_encoded = encrypt(`servinggo-store-${encoded_store_id}-table-${encoded_table_num}`);
     const relative_path = `/images/qr/store_${store_id}_table_${table_num}.png`;
     const file_path = path.join(__dirname, `../../../public${relative_path}`);
 
@@ -39,7 +50,7 @@ router.post('/generate', (req, res) => {
     }, (err) => {
         if (err) res.send(err);
 
-        knex.insert({store_id: store_id, table_num, relative_url: relative_path})
+        knex.insert({store_id, table_num, relative_url: relative_path})
             .into('qr')
             .then(() => {
                 res.send(`${protocol}://${host}${relative_path}`);

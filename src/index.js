@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
 const app = express();
 
 // Port
@@ -21,7 +20,7 @@ app.use(cors());
 // Router endpoint
 app.use('/api', router_api);
 
-// Server connectivty test page
+// Server connectivity test page
 app.get('/', (req, res) => {
     res.send('ServingGo server deployed!');
 });
