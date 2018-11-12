@@ -1,9 +1,11 @@
+const config = require('../services/config_customer');
 const crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
-    key = 'm7FE3kp01abm866Tr9qaAp812Vx01enP'; // key is 32 characters long
+    key = config.qr_aes_encryption_key; // key is 32 characters long
 
 const IV_LENGTH = 16; // For AES, this is always 16
 
+// Function to encrypt text
 function encrypt(text) {
     const iv = crypto.randomBytes(IV_LENGTH);
     const cipher = crypto.createCipheriv(algorithm, key, iv);
@@ -13,6 +15,7 @@ function encrypt(text) {
     return iv.toString('hex') + ':' + encrypted.toString('hex');
 }
 
+// Function to decrypt text
 function decrypt(text) {
     const textParts = text.split(':');
     const iv = new Buffer(textParts.shift(), 'hex');

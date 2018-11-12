@@ -11,7 +11,9 @@ const router = express.Router();
 router.get('/crypto', (req, res) => {
     const text = req.query.text;
     const encrypted = encrypt(text);
+    const encrypted2 = encrypt(text);
     console.log('Encrypted text:', encrypted);
+    console.log('Encrypted2 text:', encrypted2);
     const decrypted = decrypt(encrypted);
     console.log('Decrypted text:', decrypted);
     res.send(decrypted);
