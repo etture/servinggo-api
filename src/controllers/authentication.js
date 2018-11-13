@@ -2,30 +2,50 @@ const jwt = require('jsonwebtoken');
 const config = require('../services/config_merchant');
 const bcrypt = require('bcrypt-nodejs');
 const knex = require('../knexfile');
+const redis = require('../redisfile');
+const uuidv1 = require('uuid/v1');
 
-const tokenList = {};
+// Function to sign JWT
+const signToken = (token_type, merchant_id) => {
+    // uuid as key in Redis store
+    const uuid = uuidv1();
+    if (token_type === "access") {
+        const token = jwt.sign({token_type, merchant_id, uuid}, config.jwt_access_token_secret, {expiresIn: config.jwt_access_token_life});
+        return {token, uuid};
+    } else if (token_type === "refresh") {
+        const token = jwt.sign({token_type, merchant_id, uuid}, config.jwt_refresh_token_secret, {expiresIn: config.jwt_refresh_token_life});
+        return {token, uuid};
+    } else {
+        return false;
+    }
+};
 
 // 일단 사장님 쪽 부터
 const getTokenAtSignIn = (merchant_id) => {
     console.log('merchant_id:', merchant_id);
-    const access_token = jwt.sign({merchant_id}, config.jwt_access_token_secret, {expiresIn: config.jwt_access_token_life});
-    const refresh_token = jwt.sign({merchant_id}, config.jwt_refresh_token_secret, {expiresIn: config.jwt_refresh_token_life});
+    const access_token_uuid = signToken('access', merchant_id);
+    const refresh_token_uuid = signToken('refresh', merchant_id);
 
-    tokenList[refresh_token] = {access_token, refresh_token};
-    console.log("access_token:", access_token);
+    // Redis in-memory store
+    redis.set(refresh_token_uuid.uuid, access_token_uuid.token);
+    console.log("access_token:", access_token_uuid.token);
 
-    return tokenList[refresh_token];
+    return {
+        access_token: access_token_uuid.token,
+        refresh_token: refresh_token_uuid.token
+    };
 };
 
 exports.refreshAccessToken = (req, res, next) => {
-    if((req.body.refresh_token) && (req.body.refresh_token in tokenList)){
-        const access_token = jwt.sign({merchant_id: req.body.merchant_id}, config.jwt_access_token_secret, {expiresIn: config.jwt_access_token_life});
+    // Get merchant_id, refresh token uuid
+    const {id: merchant_id, uuid} = req.user;
+    console.log('refresh token uuid:', uuid);
+    const access_token_uuid = signToken('access', merchant_id);
 
-        tokenList[req.body.refresh_token].access_token = access_token;
-        res.status(200).json({access_token});
-    }else{
-        res.status(404).send('Invalid request');
-    }
+    // Redis in-memory store
+    redis.set(uuid, access_token_uuid.token);
+
+    res.status(200).json({access_token: access_token_uuid.token});
 };
 
 const hashPassword = (plainPassword, next) => {
@@ -55,12 +75,12 @@ exports.signup = (req, res, next) => {
         .where({email})
         .limit(1)
         .then((result) => {
-            if(result.length > 0){
+            if (result.length > 0) {
                 return res.status(422).send({errorMessage: 'Email is in use'});
             }
 
             hashPassword(password, (err, hash) => {
-                if(err) return next(err);
+                if (err) return next(err);
                 password = hash;
 
                 knex.insert({email, password, name, phone_num})
@@ -89,7 +109,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.signin = (req, res, next) => {
-    console.log('req', req);
+    // console.log('req', req);
     res.status(200).json({
         isSuccess: true,
         token: getTokenAtSignIn(req.user.id)
@@ -102,6 +122,16 @@ exports.token = (req, res, next) => {
     res.json(tokens);
 };
 
-exports.test = (req, res, next) => {
+exports.testAuth = (req, res, next) => {
+    console.log('req.user:', req.user);
+    console.log('req.body:', req.body);
     res.send('cool');
+};
+
+exports.checkRefreshTokenInMemory = (req, res, next) => {
+    const refresh_token = req.get('authorization');
+    redis.get(refresh_token, (err, reply) => {
+        if (err) return next(err);
+        next(req, res);
+    });
 };
