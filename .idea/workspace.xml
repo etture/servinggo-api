@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6c0b7e1-0f45-405c-8fef-19a8a702a6f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reference/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/reference/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/authentication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redisfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redisfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customer/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customer/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/merchant/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/merchant/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/merchant/qr.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/merchant/qr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/passport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/passport.js" afterDir="false" />
-    </list>
+    <list default="true" id="d6c0b7e1-0f45-405c-8fef-19a8a702a6f3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +91,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="config_merchant" value="1" />
-          <entry key="env" value="3" />
+          <entry key="env" value="4" />
           <entry key="gitignore" value="3" />
           <entry key="js" value="92" />
           <entry key="json" value="6" />
@@ -118,7 +102,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key=".env file" value="3" />
+          <entry key=".env file" value="4" />
           <entry key="EJS" value="1" />
           <entry key="Image" value="17" />
           <entry key="JSON" value="6" />
@@ -176,11 +160,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reference/schema.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+            <state relative-caret-position="3">
+              <caret line="19" selection-start-line="19" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -190,6 +174,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2340">
               <caret line="131" column="18" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
             </state>
           </provider>
         </entry>
@@ -361,7 +354,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542304420658" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542305399730" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.11.1" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -447,17 +440,17 @@
       <workItem from="1542030310781" duration="22540000" />
       <workItem from="1542127054547" duration="749000" />
       <workItem from="1542164257578" duration="7513000" />
-      <workItem from="1542276232334" duration="6584000" />
+      <workItem from="1542276232334" duration="7506000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110445000" />
+    <option name="totallyTimeSpent" value="111367000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="-913" width="1721" height="935" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14328718" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14328718" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -475,7 +468,7 @@
       <window_info anchor="bottom" id="Database Console" order="7" weight="0.29213482" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32798573" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.26716605" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.48189762" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -692,13 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="36" lean-forward="true" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/knexfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -715,8 +701,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reference/schema.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+        <state relative-caret-position="3">
+          <caret line="19" selection-start-line="19" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
         </state>
       </provider>
     </entry>
