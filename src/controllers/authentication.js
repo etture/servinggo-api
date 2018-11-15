@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('../services/config_merchant');
 const bcrypt = require('bcrypt-nodejs');
 const knex = require('../knexfile');
 const redis = require('../redisfile');

@@ -1,7 +1,6 @@
-const config = require('../services/config_customer');
 const crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
-    key = config.qr_aes_encryption_key; // key is 32 characters long
+    key = process.env.QR_AES_ENCRYPTION_KEY; // key is 32 characters long
 
 const IV_LENGTH = 16; // For AES, this is always 16
 
