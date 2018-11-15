@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 // Routes
-const auth_api = require('./auth');
-const qr_api = require('./qr');
+const authApi = require('./auth');
+const qrApi = require('./qr');
 
-router.use('/auth', auth_api);
-router.use('/qr', qr_api);
+router.use('/auth', authApi);
+router.use('/qr', qrApi);
 
 module.exports = router;

@@ -4,8 +4,8 @@ const express = require('express');
 const router = express.Router();
 
 // Routes
-const store_api = require('./store');
+const storeApi = require('./store');
 
-router.use('/store', store_api);
+router.use('/store', storeApi);
 
 module.exports = router;

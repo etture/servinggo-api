@@ -6,14 +6,14 @@ const redis = require('../redisfile');
 const uuidv1 = require('uuid/v1');
 
 // Function to sign JWT
-const signToken = (token_type, merchant_id) => {
+const signToken = (tokenType, merchantId) => {
     // uuid as key in Redis store
     const uuid = uuidv1();
-    if (token_type === "access") {
-        const token = jwt.sign({token_type, merchant_id, uuid}, config.jwt_access_token_secret, {expiresIn: config.jwt_access_token_life});
+    if (tokenType === "access") {
+        const token = jwt.sign({tokenType, merchantId, uuid}, process.env.MERCHANT_JWT_ACCESS_TOKEN_SECRET, {expiresIn: process.env.MERCHANT_JWT_ACCESS_TOKEN_LIFE});
         return {token, uuid};
-    } else if (token_type === "refresh") {
-        const token = jwt.sign({token_type, merchant_id, uuid}, config.jwt_refresh_token_secret, {expiresIn: config.jwt_refresh_token_life});
+    } else if (tokenType === "refresh") {
+        const token = jwt.sign({tokenType, merchantId, uuid}, process.env.MERCHANT_JWT_REFRESH_TOKEN_SECRET, {expiresIn: process.env.MERCHANT_JWT_REFRESH_TOKEN_LIFE});
         return {token, uuid};
     } else {
         return false;
@@ -21,31 +21,31 @@ const signToken = (token_type, merchant_id) => {
 };
 
 // 일단 사장님 쪽 부터
-const getTokenAtSignIn = (merchant_id) => {
-    console.log('merchant_id:', merchant_id);
-    const access_token_uuid = signToken('access', merchant_id);
-    const refresh_token_uuid = signToken('refresh', merchant_id);
+const getTokenAtSignIn = (merchantId) => {
+    console.log('merchantId:', merchantId);
+    const accessTokenUuid = signToken('access', merchantId);
+    const refreshTokenUuid = signToken('refresh', merchantId);
 
     // Redis in-memory store
-    redis.set(refresh_token_uuid.uuid, access_token_uuid.token);
-    console.log("access_token:", access_token_uuid.token);
+    redis.set(refreshTokenUuid.uuid, accessTokenUuid.token);
+    console.log("accessToken:", accessTokenUuid.token);
 
     return {
-        access_token: access_token_uuid.token,
-        refresh_token: refresh_token_uuid.token
+        accessToken: accessTokenUuid.token,
+        refreshToken: refreshTokenUuid.token
     };
 };
 
 exports.refreshAccessToken = (req, res, next) => {
     // Get merchant_id, refresh token uuid
-    const {id: merchant_id, uuid} = req.user;
+    const {id: merchantId, uuid} = req.user;
     console.log('refresh token uuid:', uuid);
-    const access_token_uuid = signToken('access', merchant_id);
+    const accessTokenUuid = signToken('access', merchantId);
 
     // Redis in-memory store
-    redis.set(uuid, access_token_uuid.token);
+    redis.set(uuid, accessTokenUuid.token);
 
-    res.status(200).json({access_token: access_token_uuid.token});
+    res.status(200).json({accessToken: accessTokenUuid.token});
 };
 
 const hashPassword = (plainPassword, next) => {
@@ -64,7 +64,7 @@ exports.signup = (req, res, next) => {
     const email = req.body.email;
     let password = req.body.password;
     const name = req.body.name;
-    const phone_num = req.body.phone_num;
+    const phoneNum = req.body.phone_num;
 
     if (!email || !password) {
         return res.status(422).send({errorMessage: 'Must provide both email and password'});
@@ -83,7 +83,7 @@ exports.signup = (req, res, next) => {
                 if (err) return next(err);
                 password = hash;
 
-                knex.insert({email, password, name, phone_num})
+                knex.insert({email, password, name, phone_num: phoneNum})
                     .into('merchant')
                     .returning('id')
                     .then((id) => {
@@ -92,8 +92,8 @@ exports.signup = (req, res, next) => {
                         res.json({
                             isSuccess: true,
                             user: {
-                                merchant_id: id[0],
-                                email, name, phone_num
+                                merchantId: id[0],
+                                email, name, phoneNum
                             },
                             token: getTokenAtSignIn(id[0])
                         });
@@ -117,8 +117,8 @@ exports.signin = (req, res, next) => {
 };
 
 exports.token = (req, res, next) => {
-    const merchant_id = req.body.merchant_id;
-    const tokens = getTokenAtSignIn(merchant_id);
+    const merchantId = req.body.merchant_id;
+    const tokens = getTokenAtSignIn(merchantId);
     res.json(tokens);
 };
 
@@ -129,8 +129,8 @@ exports.testAuth = (req, res, next) => {
 };
 
 exports.checkRefreshTokenInMemory = (req, res, next) => {
-    const refresh_token = req.get('authorization');
-    redis.get(refresh_token, (err, reply) => {
+    const refreshToken = req.get('authorization');
+    redis.get(refreshToken, (err, reply) => {
         if (err) return next(err);
         next(req, res);
     });

@@ -1,18 +1,18 @@
-const redisfile = require('redis');
-let redis_client;
+const redis = require('redis');
+let redisClient;
 
 if (process.env.REDISCLOUD_URL) {
-    redis_client = redisfile.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
+    redisClient = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
 } else {
-    redis_client = redisfile.createClient();
+    redisClient = redis.createClient();
 }
 
-redis_client.on('connection', () => {
+redisClient.on('connection', () => {
     console.log('Redis: Client connected');
 });
 
-redis_client.on('error', (err) => {
+redisClient.on('error', (err) => {
     console.log('Redis: Something went wrong:', err);
 });
 
-module.exports = redis_client;
+module.exports = redisClient;

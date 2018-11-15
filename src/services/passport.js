@@ -9,15 +9,15 @@ const redis = require('../redisfile');
 
 const accessJwtOptions = {
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-    secretOrKey: config.jwt_access_token_secret
+    secretOrKey: process.env.MERCHANT_JWT_ACCESS_TOKEN_SECRET
 };
 
 const verifyAccessJwt = new JwtStrategy(accessJwtOptions, (payload, done) => {
     console.log("payload:", payload);
-    const {exp, merchant_id, token_type} = payload;
+    const {exp, merchantId, tokenType} = payload;
 
     // If token is not an access token, fail
-    if (token_type !== 'access') return done(null, false);
+    if (tokenType !== 'access') return done(null, false);
 
     // Check if token is expired
     const now = Date.now();
@@ -28,11 +28,11 @@ const verifyAccessJwt = new JwtStrategy(accessJwtOptions, (payload, done) => {
         return done(null, false);
     }
 
-    console.log("merchant_id", merchant_id);
+    console.log("merchantId", merchantId);
 
     knex.select('id', 'email', 'name', 'phone_num')
         .from('merchant')
-        .where('id', merchant_id)
+        .where('id', merchantId)
         .limit(1)
         .then((result) => {
             const merchant = JSON.parse(JSON.stringify(result))[0];
@@ -47,16 +47,16 @@ const verifyAccessJwt = new JwtStrategy(accessJwtOptions, (payload, done) => {
 // Ignore expiration so that it can be done manually in the JwtStrategy, and delete Redis key for that token
 const refreshJwtOptions = {
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-    secretOrKey: config.jwt_refresh_token_secret,
+    secretOrKey: process.env.MERCHANT_JWT_REFRESH_TOKEN_SECRET,
     ignoreExpiration: true
 };
 
 const verifyRefreshJwt = new JwtStrategy(refreshJwtOptions, (payload, done) => {
     console.log("payload:", payload);
-    const {exp, merchant_id, token_type, uuid} = payload;
+    const {exp, merchantId, tokenType, uuid} = payload;
 
     // If token is not an refresh token, fail
-    if (token_type !== 'refresh') return done(null, false);
+    if (tokenType !== 'refresh') return done(null, false);
 
     // If uuid not in Redis store, fail
     // If key doesn't exist, redis.get(uuid) doesn't throw error, but reply is null
@@ -64,7 +64,6 @@ const verifyRefreshJwt = new JwtStrategy(refreshJwtOptions, (payload, done) => {
         if (err) return done(err, false);
         // key doesn't exist
         if(reply === null) return done(null, false);
-
         // Check if token is expired
         const now = Date.now();
         if (exp * 1000 < now) {
@@ -76,11 +75,11 @@ const verifyRefreshJwt = new JwtStrategy(refreshJwtOptions, (payload, done) => {
             return done(null, false);
         }
 
-        console.log("merchant_id", merchant_id);
+        console.log("merchantId", merchantId);
 
         knex.select('id', 'email', 'name', 'phone_num')
             .from('merchant')
-            .where('id', merchant_id)
+            .where('id', merchantId)
             .limit(1)
             .then((result) => {
                 const merchant = JSON.parse(JSON.stringify(result))[0];

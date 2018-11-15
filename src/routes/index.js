@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 // Routes
-const customer_route = require('./customer/index');
-const merchant_route = require('./merchant/index');
+const customerRoute = require('./customer/index');
+const merchantRoute = require('./merchant/index');
 
-router.use('/customer', customer_route);
-router.use('/merchant', merchant_route);
+router.use('/customer', customerRoute);
+router.use('/merchant', merchantRoute);
 
 module.exports = router;

@@ -25,14 +25,14 @@ router.get('/crypto', (req, res) => {
 // Static resource로 serve 하도록 저장, URL 반환
 // TODO turn response into JSON output
 router.post('/generate', (req, res) => {
-    const {store_id, table_num} = req.body;
-    const encoded_store_id = (store_id * 47 + 19) * 7 + 57;
-    const encoded_table_num = (table_num * 32 - 25) * 3 + 48;
+    const {store_id: storeId, table_num: tableNum} = req.body;
+    const encodedStoreId = (storeId * 47 + 19) * 7 + 57;
+    const encodedTableNum = (tableNum * 32 - 25) * 3 + 48;
 
     // Text to be encoded in QR code
-    const text_encoded = encrypt(`servinggo-store-${encoded_store_id}-table-${encoded_table_num}`);
-    const relative_path = `/images/qr/store_${store_id}_table_${table_num}.png`;
-    const file_path = path.join(__dirname, `../../../public${relative_path}`);
+    const textEncoded = encrypt(`servinggo-store-${encodedStoreId}-table-${encodedTableNum}`);
+    const relativePath = `/images/qr/store_${storeId}_table_${tableNum}.png`;
+    const filePath = path.join(__dirname, `../../../public${relativePath}`);
 
     const protocol = req.protocol;
     const host = req.get('host');
@@ -40,7 +40,7 @@ router.post('/generate', (req, res) => {
     console.log('protocol:', protocol);
     console.log('host:', host);
 
-    qrcode.toFile(file_path, text_encoded, {
+    qrcode.toFile(filePath, textEncoded, {
         type: 'png',
         errorConnectionLevel: 'H',
         width: 300,
@@ -52,10 +52,10 @@ router.post('/generate', (req, res) => {
     }, (err) => {
         if (err) res.send(err);
 
-        knex.insert({store_id, table_num, relative_url: relative_path})
+        knex.insert({store_id: storeId, table_num: tableNum, relative_url: relativePath})
             .into('qr')
             .then(() => {
-                res.send(`${protocol}://${host}${relative_path}`);
+                res.send(`${protocol}://${host}${relativePath}`);
             })
             .catch((err) => {
                 res.status(400).json(err);
