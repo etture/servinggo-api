@@ -10,8 +10,8 @@ const signToken = (tokenType, merchantId) => {
     // uuid as key in Redis store
     const uuid = uuidv1();
     if (tokenType === "access") {
-        const token = jwt.sign({tokenType, merchantId, uuid}, process.env.MERCHANT_JWT_ACCESS_TOKEN_SECRET, {expiresIn: process.env.MERCHANT_JWT_ACCESS_TOKEN_LIFE});
         console.log(`token secret: ${process.env.MERCHANT_JWT_ACCESS_TOKEN_SECRET}, expiresIn: ${process.env.MERCHANT_JWT_ACCESS_TOKEN_LIFE}`);
+        const token = jwt.sign({tokenType, merchantId, uuid}, process.env.MERCHANT_JWT_ACCESS_TOKEN_SECRET, {expiresIn: process.env.MERCHANT_JWT_ACCESS_TOKEN_LIFE});
         return {token, uuid};
     } else if (tokenType === "refresh") {
         const token = jwt.sign({tokenType, merchantId, uuid}, process.env.MERCHANT_JWT_REFRESH_TOKEN_SECRET, {expiresIn: process.env.MERCHANT_JWT_REFRESH_TOKEN_LIFE});
