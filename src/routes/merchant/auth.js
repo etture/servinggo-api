@@ -6,7 +6,7 @@ const redis = require('../../redisfile');
 // Endpoint: /api/merchant/auth
 const router = express.Router();
 
-const Authentication = require('../../controllers/authentication');
+const Authentication = require('../../controllers/merchant/authentication');
 const requireSignin = passport.authenticate('local', {session: false});
 const requireAuthAccessToken = passport.authenticate('access-jwt', {session: false});
 const requireAuthRefreshToken = passport.authenticate('refresh-jwt', {session: false});

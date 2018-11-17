@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
-const knex = require('../knexfile');
-const redis = require('../redisfile');
+const knex = require('../../knexfile');
+const redis = require('../../redisfile');
 const uuidv1 = require('uuid/v1');
 
 // Function to sign JWT
