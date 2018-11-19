@@ -70,7 +70,7 @@ exports.signup = (req, res, next) => {
         return res.status(422).send({errorMessage: 'Must provide both email and password'});
     }
 
-    knex.select()
+    knex.select('*')
         .from('merchant')
         .where({email})
         .limit(1)
@@ -90,7 +90,7 @@ exports.signup = (req, res, next) => {
                         console.log('hashed pw:', password);
                         //Create and send JWT using the user_id
                         res.json({
-                            isSuccess: true,
+                            success: true,
                             user: {
                                 merchantId: id[0],
                                 email, name, phoneNum
@@ -98,8 +98,12 @@ exports.signup = (req, res, next) => {
                             token: getTokenAtSignIn(id[0])
                         });
                     })
-                    .catch((err) => {
-                        res.status(400).json(err);
+                    .catch((error) => {
+                        res.status(400).json({
+                            success: false,
+                            errorMessage: "회원가입 에러가 발생했습니다. 다시 시도해주세요!",
+                            error
+                        });
                     });
             });
         })
@@ -111,7 +115,7 @@ exports.signup = (req, res, next) => {
 exports.signin = (req, res, next) => {
     // console.log('req', req);
     res.status(200).json({
-        isSuccess: true,
+        success: true,
         token: getTokenAtSignIn(req.user.id)
     })
 };

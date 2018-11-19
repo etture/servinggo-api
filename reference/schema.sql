@@ -5,18 +5,18 @@ USE servinggo;
 
 CREATE TABLE customer (
   id        INT AUTO_INCREMENT PRIMARY KEY,
-  email     VARCHAR(50) NOT NULL,
+  email     VARCHAR(50)  NOT NULL,
   password  VARCHAR(255) NOT NULL,
-  name      VARCHAR(10) NOT NULL,
-  phone_num VARCHAR(15) NOT NULL
+  name      VARCHAR(10)  NOT NULL,
+  phone_num VARCHAR(15)  NOT NULL
 );
 
 CREATE TABLE merchant (
-  id              INT AUTO_INCREMENT PRIMARY KEY,
-  email           VARCHAR(50)  NOT NULL,
-  password        VARCHAR(255)  NOT NULL,
-  name            VARCHAR(10)  NOT NULL,
-  phone_num       VARCHAR(15)  NOT NULL
+  id        INT AUTO_INCREMENT PRIMARY KEY,
+  email     VARCHAR(50)  NOT NULL,
+  password  VARCHAR(255) NOT NULL,
+  name      VARCHAR(10)  NOT NULL,
+  phone_num VARCHAR(15)  NOT NULL
 );
 
 CREATE TABLE store (
@@ -24,6 +24,7 @@ CREATE TABLE store (
   merchant_id INT          NOT NULL,
   name        VARCHAR(100) NOT NULL,
   phone_num   VARCHAR(15)  NOT NULL,
+  address     VARCHAR(255) NOT NULL,
   account_num VARCHAR(20)  NOT NULL,
   FOREIGN KEY (merchant_id) REFERENCES merchant (id)
     ON UPDATE CASCADE
@@ -31,7 +32,7 @@ CREATE TABLE store (
 );
 
 CREATE TABLE qr (
-  store_id  INT          NOT NULL,
+  store_id     INT          NOT NULL,
   table_num    INT          NOT NULL,
   relative_url VARCHAR(255) NOT NULL,
   FOREIGN KEY (store_id) REFERENCES store (id)
@@ -42,7 +43,7 @@ CREATE TABLE qr (
 
 CREATE TABLE menu (
   id          INT AUTO_INCREMENT PRIMARY KEY,
-  store_id INT          NOT NULL,
+  store_id    INT          NOT NULL,
   name        VARCHAR(100) NOT NULL,
   description VARCHAR(255),
   price_krw   INT          NOT NULL,
@@ -54,7 +55,7 @@ CREATE TABLE menu (
 
 CREATE TABLE `order` (
   id             INT         NOT NULL PRIMARY KEY,
-  store_id    INT         NOT NULL,
+  store_id       INT         NOT NULL,
   customer_id    INT         NOT NULL,
   time           TIMESTAMP   NOT NULL DEFAULT NOW(),
   payment_scheme VARCHAR(30) NOT NULL,

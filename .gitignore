@@ -5,3 +5,4 @@ npm-debug.log
 .env
 /public/images/qr/*.png
 /src/local
+/build

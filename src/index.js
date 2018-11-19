@@ -10,7 +10,7 @@ const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 3012;
 
 // Routes
-const routerApi = require('./routes/index');
+const routerApi = require('./categories/index');
 
 // Middleware setup
 app.use(morgan('dev'));

@@ -1,5 +1,5 @@
 const express = require('express');
-const knex = require('../../knexfile');
+const knex = require('../../../knexfile');
 
 // Endpoint: /api/store
 const router = express.Router();

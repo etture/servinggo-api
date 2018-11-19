@@ -13,9 +13,11 @@
     "start": "npm run build && node ./build/index.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.358.0",
     "axios": "^0.18.0",
     "babel-preset-env": "^1.7.0",
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",

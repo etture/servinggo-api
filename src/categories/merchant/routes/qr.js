@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const qrcode = require('qrcode');
-const knex = require('../../knexfile');
-const {encrypt, decrypt} = require('../../utils/encryption');
+const knex = require('../../../knexfile');
+const {encrypt, decrypt} = require('../../../utils/encryption');
 
 // Endpoint: /api/qr
 const router = express.Router();

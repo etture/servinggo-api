@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 // Routes
-const storeApi = require('./store');
+const storeApi = require('./routes/store');
 
 router.use('/store', storeApi);
 
