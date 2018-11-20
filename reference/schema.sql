@@ -26,6 +26,7 @@ CREATE TABLE store (
   phone_num   VARCHAR(15)  NOT NULL,
   address     VARCHAR(255) NOT NULL,
   account_num VARCHAR(20)  NOT NULL,
+  description VARCHAR(255),
   FOREIGN KEY (merchant_id) REFERENCES merchant (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE

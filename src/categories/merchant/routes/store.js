@@ -14,5 +14,7 @@ const requireAuthAccessToken = passport.authenticate('access-jwt', {session: fal
 router.post('/createNewStore', requireAuthAccessToken, StoreController.createNewStore);
 // Get the list of all stores owned by the merchant
 router.get('/getStores', requireAuthAccessToken, StoreController.getStores);
+// Edit store description
+router.put('/editStoreDesc', requireAuthAccessToken, StoreController.editStoreDesc);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const knex = require('../../knexfile');
 
+// Create a new store for merchant
 exports.createNewStore = (req, res, next) => {
     // Get merchantId from accessToken after passport authentication
     const {id: merchantId} = req.user;
@@ -12,7 +13,8 @@ exports.createNewStore = (req, res, next) => {
         name,
         phone_num: phoneNum,
         address,
-        account_num: accountNum})
+        account_num: accountNum
+    })
         .into('store')
         .then(() => {
             res.status(200).json({
@@ -28,10 +30,12 @@ exports.createNewStore = (req, res, next) => {
         });
 };
 
+// Get a list of stores operated by merchant
 exports.getStores = (req, res, next) => {
     // Get merchantId from accessToken after passport authentication
     const {id: merchantId} = req.user;
 
+    // SELECT * FROM `store` WHERE `merchant_id` = ... ORDER BY `id` ASC;
     knex.select('*')
         .from('store')
         .where({merchant_id: merchantId})
@@ -52,3 +56,35 @@ exports.getStores = (req, res, next) => {
             })
         });
 };
+
+// Edit store description
+exports.editStoreDesc = (req, res, next) => {
+    // Get merchantId from accessToken after passport authentication
+    const {id: merchantId} = req.user;
+    const {id, description} = req.body;
+
+    console.log('merchantId:', merchantId);
+    console.log('id, desc:', id, description);
+
+    knex('store')
+        .update({description})
+        .where({
+            id,
+            merchant_id: merchantId
+        })
+        .then(() => {
+            console.log('description:', description);
+            res.status(200).json({
+                success: true,
+                newDescription: description
+            });
+        })
+        .catch((error) => {
+            res.status(400).json({
+                success: false,
+                errorMessage: "에러가 발생했습니다. 다시 시도해주세요!",
+                error
+            })
+        });
+};
+

@@ -1354,16 +1354,21 @@ table_num</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="322" parent="267" name="merchant_id">
+    <column id="322" parent="267" name="description">
+      <Position>7</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="323" parent="267" name="merchant_id">
       <ColNames>merchant_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="323" parent="267" name="PRIMARY">
+    <key id="324" parent="267" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="324" parent="267" name="store_ibfk_1">
+    <foreign-key id="325" parent="267" name="store_ibfk_1">
       <ColNames>merchant_id</ColNames>
       <RefSchemaName>servinggo</RefSchemaName>
       <RefTableName>merchant</RefTableName>
