@@ -42,16 +42,38 @@ CREATE TABLE qr (
   UNIQUE (store_id, table_num)
 );
 
-CREATE TABLE menu (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  store_id    INT          NOT NULL,
-  name        VARCHAR(100) NOT NULL,
+CREATE TABLE menu_category (
+  id          INT                     AUTO_INCREMENT PRIMARY KEY,
+  merchant_id INT            NOT NULL,
+  store_id    INT            NOT NULL,
+  name        VARCHAR(100)   NOT NULL,
   description VARCHAR(255),
-  price_krw   INT          NOT NULL,
+  show_order  DECIMAL(11, 4) NOT NULL DEFAULT 0,
+  FOREIGN KEY (merchant_id) REFERENCES merchant (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
   FOREIGN KEY (store_id) REFERENCES store (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   UNIQUE (store_id, name)
+);
+
+CREATE TABLE menu (
+  id          INT                     AUTO_INCREMENT PRIMARY KEY,
+  merchant_id INT            NOT NULL,
+  category_id INT            NOT NULL,
+  name        VARCHAR(100)   NOT NULL,
+  description VARCHAR(255),
+  price_krw   INT            NOT NULL,
+  show_order  DECIMAL(11, 4) NOT NULL DEFAULT 0,
+  rating      DECIMAL(3, 2),
+  FOREIGN KEY (merchant_id) REFERENCES merchant (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES menu_category (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  UNIQUE (category_id, name)
 );
 
 CREATE TABLE `order` (
