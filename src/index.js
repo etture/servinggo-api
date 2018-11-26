@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json({type: '*/*'}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('public'));
-app.use(cors());
+app.use(cors({origin: '*', optionsSuccessStatus: 200}));
 app.use(passport.initialize());
 
 // Router endpoint

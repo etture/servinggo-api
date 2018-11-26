@@ -4,7 +4,7 @@ const qrcode = require('qrcode');
 const knex = require('../../../knexfile');
 const {encrypt, decrypt} = require('../../../utils/encryption');
 
-// Endpoint: /api/qr
+// Endpoint: /api/merchant/qr
 const router = express.Router();
 
 // Encryption Test용 endpoint
@@ -32,11 +32,12 @@ router.post('/generate', (req, res) => {
     // Text to be encoded in QR code
     const textEncoded = encrypt(`servinggo-store-${encodedStoreId}-table-${encodedTableNum}`);
     const relativePath = `/images/qr/store_${storeId}_table_${tableNum}.png`;
-    const filePath = path.join(__dirname, `../../../public${relativePath}`);
+    const filePath = path.join(__dirname, `../../../../public${relativePath}`);
 
     const protocol = req.protocol;
     const host = req.get('host');
 
+    console.log('__dirname:', __dirname);
     console.log('protocol:', protocol);
     console.log('host:', host);
 
@@ -50,7 +51,7 @@ router.post('/generate', (req, res) => {
             light: '#ffffff' // Background (transparent: #0000)
         }
     }, (err) => {
-        if (err) res.send(err);
+        if (err) return res.send(err);
 
         knex.insert({store_id: storeId, table_num: tableNum, relative_url: relativePath})
             .into('qr')

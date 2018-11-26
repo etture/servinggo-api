@@ -12,10 +12,13 @@ const qrApi = require('./routes/qr');
 const storeApi = require('./routes/store');
 // Menu-related endpoints (create menu category, create menu, etc.)
 const menuApi = require('./routes/menu');
+// Table-related endpoints (QR generation)
+const tableApi = require('./routes/table');
 
 router.use('/auth', authApi);
 router.use('/qr', qrApi);
 router.use('/store', storeApi);
 router.use('/menu', menuApi);
+router.use('/table', tableApi);
 
 module.exports = router;

@@ -32,10 +32,10 @@ CREATE TABLE store (
     ON DELETE CASCADE
 );
 
-CREATE TABLE qr (
+CREATE TABLE `table` (
   store_id     INT          NOT NULL,
   table_num    INT          NOT NULL,
-  relative_url VARCHAR(255) NOT NULL,
+  qr_url VARCHAR(255) NOT NULL,
   FOREIGN KEY (store_id) REFERENCES store (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
@@ -49,6 +49,8 @@ CREATE TABLE menu_category (
   name        VARCHAR(100)   NOT NULL,
   description VARCHAR(255),
   show_order  DECIMAL(11, 4) NOT NULL DEFAULT 0,
+  created_at  TIMESTAMP      NOT NULL DEFAULT NOW(),
+  updated_at  TIMESTAMP      NOT NULL DEFAULT NOW(),
   FOREIGN KEY (merchant_id) REFERENCES merchant (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
@@ -65,8 +67,11 @@ CREATE TABLE menu (
   name        VARCHAR(100)   NOT NULL,
   description VARCHAR(255),
   price_krw   INT            NOT NULL,
+  image_url   VARCHAR(255),
   show_order  DECIMAL(11, 4) NOT NULL DEFAULT 0,
   rating      DECIMAL(3, 2),
+  created_at  TIMESTAMP      NOT NULL DEFAULT NOW(),
+  updated_at  TIMESTAMP      NOT NULL DEFAULT NOW(),
   FOREIGN KEY (merchant_id) REFERENCES merchant (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
@@ -80,7 +85,7 @@ CREATE TABLE `order` (
   id             INT         NOT NULL PRIMARY KEY,
   store_id       INT         NOT NULL,
   customer_id    INT         NOT NULL,
-  time           TIMESTAMP   NOT NULL DEFAULT NOW(),
+  created_at     TIMESTAMP   NOT NULL DEFAULT NOW(),
   payment_scheme VARCHAR(30) NOT NULL,
   paid           BOOLEAN     NOT NULL,
   served         BOOLEAN     NOT NULL,

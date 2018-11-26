@@ -17,4 +17,6 @@ router.get('/getStores', requireAuthAccessToken, StoreController.getStores);
 // Edit store description
 router.put('/editStoreDesc', requireAuthAccessToken, StoreController.editStoreDesc);
 
+// TODO /deleteStore
+
 module.exports = router;
