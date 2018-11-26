@@ -30,7 +30,7 @@ router.post('/generate', (req, res) => {
     const encodedTableNum = (tableNum * 32 - 25) * 3 + 48;
 
     // Text to be encoded in QR code
-    const textEncoded = encrypt(`servinggo-store-${encodedStoreId}-table-${encodedTableNum}`);
+    const textEncoded = 'servinggo.app';
     const relativePath = `/images/qr/store_${storeId}_table_${tableNum}.png`;
     const filePath = path.join(__dirname, `../../../../public${relativePath}`);
 
@@ -48,19 +48,19 @@ router.post('/generate', (req, res) => {
         maskPattern: 6,
         color: {
             dark: '#000000',  // Dots
-            light: '#ffffff' // Background (transparent: #0000)
+            light: '#0000' // Background (transparent: #0000)
         }
     }, (err) => {
         if (err) return res.send(err);
 
-        knex.insert({store_id: storeId, table_num: tableNum, relative_url: relativePath})
-            .into('qr')
-            .then(() => {
-                res.send(`${protocol}://${host}${relativePath}`);
-            })
-            .catch((err) => {
-                res.status(400).json(err);
-            });
+        // knex.insert({store_id: storeId, table_num: tableNum, relative_url: relativePath})
+        //     .into('qr')
+        //     .then(() => {
+        //         res.send(`${protocol}://${host}${relativePath}`);
+        //     })
+        //     .catch((err) => {
+        //         res.status(400).json(err);
+        //     });
     });
 });
 
