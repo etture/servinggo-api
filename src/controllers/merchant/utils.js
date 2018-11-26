@@ -2,7 +2,7 @@ const knex = require('../../knexfile');
 
 // Function to check store ownership
 // Compare merchant_id and store_id of store to values passed to endpoint
-export const checkStoreOwnership = (storeId, merchantId, callback) => {
+exports.checkStoreOwnership = (storeId, merchantId, callback) => {
     knex.select('*')
         .from('store')
         .where({
