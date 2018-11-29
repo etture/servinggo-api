@@ -1,4 +1,4 @@
-const knex = require('../../knexfile');
+const knex = require('../../utils/knexfile');
 const fs = require('fs');
 const path = require('path');
 const qrcode = require('qrcode');

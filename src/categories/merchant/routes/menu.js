@@ -26,8 +26,6 @@ router.delete('/deleteMenuItem', requireAuthAccessToken, MenuController.deleteMe
 
 // TODO /editMenuCategory
 // TODO /editMenuItem
-// TODO /deleteMenuCategory
-// TODO /deleteMenuItem
 // TODO /editMenuCategoryOrder
 // TODO /editMenuItemOrder
 

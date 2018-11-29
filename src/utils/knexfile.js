@@ -1,4 +1,4 @@
-const connection = process.env.JAWSDB_URL || require('./local/mysql_connection');
+const connection = process.env.JAWSDB_URL || require('../local/mysql_connection');
 
 const knex = require('knex')({
     client: 'mysql',

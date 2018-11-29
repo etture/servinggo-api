@@ -1,4 +1,4 @@
-const knex = require('../../knexfile');
+const knex = require('../../utils/knexfile');
 const {checkStoreOwnership} = require('./utils');
 
 // Create a new menuCategory

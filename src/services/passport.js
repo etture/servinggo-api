@@ -3,8 +3,8 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt-nodejs');
-const knex = require('../knexfile');
-const redis = require('../redisfile');
+const knex = require('../utils/knexfile');
+const redis = require('../utils/redisfile');
 
 const accessJwtOptions = {
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),

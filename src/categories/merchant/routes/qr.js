@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const qrcode = require('qrcode');
-const knex = require('../../../knexfile');
+const knex = require('../../../utils/knexfile');
 const {encrypt, decrypt} = require('../../../utils/encryption');
 
 // Endpoint: /api/merchant/qr
@@ -47,7 +47,7 @@ router.post('/generate', (req, res) => {
         width: 300,
         maskPattern: 6,
         color: {
-            dark: '#000000',  // Dots
+            dark: '#ffffff',  // Dots
             light: '#0000' // Background (transparent: #0000)
         }
     }, (err) => {

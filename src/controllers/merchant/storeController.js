@@ -1,4 +1,4 @@
-const knex = require('../../knexfile');
+const knex = require('../../utils/knexfile');
 
 // Create a new store for merchant
 exports.createNewStore = (req, res, next) => {

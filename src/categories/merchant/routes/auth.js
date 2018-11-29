@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const passportService = require('../../../services/passport');
-const redis = require('../../../redisfile');
+const redis = require('../../../utils/redisfile');
 
 // Endpoint: /api/merchant/auth
 const router = express.Router();

@@ -1,4 +1,4 @@
-const knex = require('../../knexfile');
+const knex = require('../../utils/knexfile');
 
 // Function to check store ownership
 // Compare merchant_id and store_id of store to values passed to endpoint
